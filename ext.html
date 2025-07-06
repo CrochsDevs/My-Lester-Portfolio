@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6; /* Tailwind gray-100 */
+      color: #374151; /* Tailwind gray-800 */
+    }
+
+    /* Portfolio Grid */
+    .portfolio {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Project Card */
+    .project-card {
+      background: #ffffff;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Project Image */
+    .project-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    /* Project Content */
+    .project-content {
+      padding: 1rem;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: #6b7280; /* Tailwind gray-600 */
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #ffffff;
+      border-radius: 0.5rem;
+      padding: 2rem;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1.5rem;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="portfolio">
+      <!-- Project Card 1 -->
+      <div class="project-card" onclick="openModal('Project Title 1', 'Detailed description of the first project.', 'https://via.placeholder.com/600x300')">
+        <img src="https://via.placeholder.com/300x200" alt="Project 1" class="project-img">
+        <div class="project-content">
+          <h3 class="project-title">Project Title 1</h3>
+          <p class="project-desc">Brief description of the first project.</p>
+        </div>
+      </div>
+      <!-- Project Card 2 -->
+      <div class="project-card" onclick="openModal('Project Title 2', 'Detailed description of the second project.', 'https://via.placeholder.com/600x300')">
+        <img src="https://via.placeholder.com/300x200" alt="Project 2" class="project-img">
+        <div class="project-content">
+          <h3 class="project-title">Project Title 2</h3>
+          <p class="project-desc">Brief description of the second project.</p>
+        </div>
+      </div>
+      <!-- Add more project cards as needed -->
+    </section>
+
+    <!-- Modal -->
+    <div class="modal" id="projectModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modalTitle">Modal Title</h3>
+          <button class="close-btn" onclick="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <img id="modalImage" src="" alt="Project Image" style="width: 100%; height: auto; margin-bottom: 1rem;">
+          <p id="modalDescription">Modal description goes here.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function openModal(title, description, imageUrl) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalDescription').innerText = description;
+      document.getElementById('modalImage').src = imageUrl;
+      document.getElementById('projectModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('projectModal').classList.remove('active');
+    }
+  </script>
+</body>
+</html>

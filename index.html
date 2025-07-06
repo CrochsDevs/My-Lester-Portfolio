@@ -1,0 +1,2363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Lester Rodriguez - Web Developer Portfolio">
+    <meta name="author" content="Lester Rodriguez">
+
+    <title>LESTER RODRIGUEZ | Web Developer</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+      :root {
+        --primary: #3b82f6;
+        --secondary: #10b981;
+        --dark: #1e293b;
+        --light: #f8fafc;
+      }
+      
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--light);
+        color: var(--dark);
+      }
+      
+      .navbar {
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.8);
+      }
+      
+      /* Floating Animation */
+      .floating {
+        animation: floating 6s ease-in-out infinite;
+      }
+      
+      @keyframes floating {
+        0% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(2deg); }
+        100% { transform: translateY(0px) rotate(0deg); }
+      }
+      
+      /* Timeline */
+      .timeline-item {
+        position: relative;
+        padding-left: 3rem;
+        margin-bottom: 2.5rem;
+      }
+      
+      .timeline-item:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--primary), #10b981);
+      }
+      
+      .timeline-dot {
+        position: absolute;
+        left: -0.5rem;
+        top: 0;
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), #10b981);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.75rem;
+        font-weight: bold;
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+      }
+      
+      /* Project Cards */
+      .project-card {
+        transition: all 0.4s ease;
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
+      
+      .project-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      }
+      
+      .project-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .project-card:hover::before {
+        opacity: 1;
+      }
+      
+      /* Modal */
+      .modal {
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+      }
+      
+      .modal.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      /* Typewriter Effect */
+      .typewriter {
+        overflow: hidden;
+        border-right: 3px solid var(--primary);
+        white-space: nowrap;
+        margin: 0 auto;
+        letter-spacing: 0.15em;
+        animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+      }
+      
+      @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+      }
+      
+      @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: var(--primary); }
+      }
+      
+      /* Tech Stack Carousel */
+      .tech-carousel {
+        display: flex;
+        overflow: hidden;
+        position: relative;
+        height: 120px;
+        margin: 0 auto;
+      }
+      
+      .tech-carousel::before,
+      .tech-carousel::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 150px;
+        height: 100%;
+        z-index: 2;
+      }
+      
+      .tech-carousel::before {
+        left: 0;
+        background: linear-gradient(to right, rgba(248, 250, 252, 1), rgba(248, 250, 252, 0));
+      }
+      
+      .tech-carousel::after {
+        right: 0;
+        background: linear-gradient(to left, rgba(248, 250, 252, 1), rgba(248, 250, 252, 0));
+      }
+      
+      .tech-track {
+        display: flex;
+        align-items: center;
+        animation: scroll 40s linear infinite;
+        will-change: transform;
+      }
+      
+      .tech-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 0 2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        min-width: 80px;
+        flex-shrink: 0;
+      }
+      
+      .tech-item:hover {
+        transform: scale(1.15);
+      }
+      
+      .tech-icon {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+        transition: transform 0.3s ease;
+      }
+      
+      .tech-item:hover .tech-icon {
+        transform: rotate(15deg);
+      }
+      
+      .tech-name {
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-align: center;
+        white-space: nowrap;
+      }
+      
+      .tech-tooltip {
+        position: absolute;
+        bottom: -30px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+        pointer-events: none;
+        z-index: 10;
+      }
+      
+      .tech-item:hover .tech-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
+      /* Skill Bars */
+      .skill-container {
+        width: 100%;
+        background-color: #e5e7eb;
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+      
+      .skill-bar {
+        height: 10px;
+        border-radius: 0.5rem;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        position: relative;
+        transition: width 1.5s ease-out;
+        width: 0;
+      }
+      
+      .skill-bar::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg, 
+          rgba(255,255,255,0.1) 0%, 
+          rgba(255,255,255,0.3) 50%, 
+          rgba(255,255,255,0.1) 100%);
+        background-size: 200% 100%;
+        animation: shine 2s infinite;
+        border-radius: 0.5rem;
+      }
+      
+      @keyframes shine {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+      
+      /* Contact Form */
+      .form-input {
+        transition: all 0.3s ease;
+        border: 2px solid #e5e7eb;
+      }
+      
+      .form-input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      }
+      
+      /* Floating Particles */
+      .particle {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: -1;
+      }
+      
+      /* Glow Effect */
+      .glow {
+        text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+      }
+      
+      /* 3D Card Effect */
+      .card-3d {
+        transform-style: preserve-3d;
+        transition: transform 0.5s ease;
+      }
+      
+      .card-3d:hover {
+        transform: rotateY(10deg) rotateX(5deg);
+      }
+      
+      /* Gradient Text */
+      .gradient-text {
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      
+      /* Floating Action Button */
+      .fab-button {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.4);
+        cursor: pointer;
+        z-index: 50;
+        transition: all 0.3s ease;
+        opacity: 0;
+        visibility: hidden;
+      }
+      
+      .fab-button.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .fab-button:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 15px 30px -5px rgba(59, 130, 246, 0.6);
+      }
+      
+      /* Image Tilt Effect */
+      .tilt-image {
+        transition: transform 0.5s ease;
+        transform-style: preserve-3d;
+      }
+      
+      .tilt-image:hover {
+        transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.05);
+      }
+      
+      /* Section Divider */
+      .section-divider {
+        position: relative;
+        height: 100px;
+        overflow: hidden;
+      }
+      
+      .section-divider::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 100%;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+      }
+      
+      /* Carousel Styles */
+      .carousel-container {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease;
+      }
+      
+      .carousel-slide {
+        min-width: 100%;
+        transition: transform 0.5s ease;
+      }
+      
+      .carousel-slide img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      
+      .carousel-dots {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+      }
+      
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #ccc;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .dot.active {
+        background-color: #3b82f6 !important;
+        transform: scale(1.2);
+      }
+      
+      .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 16px;
+        z-index: 10;
+      }
+      
+      .carousel-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #333;
+      }
+      
+      .carousel-btn:hover {
+        background-color: rgba(255, 255, 255, 1);
+        transform: scale(1.1);
+      }
+      
+      /* Project Gallery */
+      .project-gallery {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 1rem;
+      }
+      
+      .project-gallery img {
+        scroll-snap-align: start;
+        flex-shrink: 0;
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        margin-right: 10px;
+      }
+      
+      /* Animation delays */
+      .animation-delay-1000 {
+        animation-delay: 1s;
+      }
+      
+      .animation-delay-2000 {
+        animation-delay: 2s;
+      }
+      
+      .animation-delay-3000 {
+        animation-delay: 3s;
+      }
+
+      /* Project Modal Gallery */
+      .modal-gallery {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      
+      .modal-gallery-container {
+        display: flex;
+        transition: transform 0.5s ease;
+        height: 100%;
+      }
+      
+      .modal-gallery-slide {
+        min-width: 100%;
+        height: 100%;
+      }
+      
+      .modal-gallery-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      
+      .modal-gallery-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 16px;
+        z-index: 10;
+      }
+      
+      .modal-gallery-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #333;
+      }
+      
+      .modal-gallery-btn:hover {
+        background-color: rgba(255, 255, 255, 1);
+        transform: scale(1.1);
+      }
+      
+      .modal-gallery-dots {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+      }
+      
+      .modal-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: #ccc;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .modal-dot.active {
+        background-color: #3b82f6 !important;
+        transform: scale(1.2);
+      }
+      
+      /* Z-index fixes for modals */
+      #projectModal {
+        z-index: 100;
+      }
+      
+      #allProjectsModal, #allCertificatesModal {
+        z-index: 90;
+      }
+
+      /* Mobile responsive adjustments */
+      @media (max-width: 768px) {
+        .hero-section {
+          padding-top: 100px;
+          padding-bottom: 50px;
+        }
+        
+        .typewriter {
+          white-space: normal;
+          border-right: none;
+          animation: none;
+        }
+        
+        .tech-icon {
+          font-size: 2rem;
+        }
+        
+        .tech-name {
+          font-size: 0.7rem;
+        }
+        
+        .modal-gallery {
+          height: 250px;
+        }
+        
+        .skill-container {
+          height: 8px;
+        }
+        
+        .carousel-btn {
+          width: 30px;
+          height: 30px;
+        }
+        
+        .fab-button {
+          width: 50px;
+          height: 50px;
+          bottom: 1rem;
+          right: 1rem;
+        }
+        
+        .timeline-item {
+          padding-left: 2rem;
+        }
+        
+        .timeline-dot {
+          width: 1.2rem;
+          height: 1.2rem;
+          left: -0.4rem;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero-content {
+          text-align: center;
+        }
+        
+        .hero-buttons {
+          justify-content: center;
+        }
+        
+        .tech-carousel {
+          height: 100px;
+        }
+        
+        .tech-item {
+          margin: 0 1rem;
+          min-width: 60px;
+        }
+        
+        .modal-content {
+          max-height: 80vh;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full z-50 py-4 px-6 shadow-sm">  
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <a href="#" class="text-2xl font-bold text-blue-600 flex items-center">
+          <i class="fas fa-user mr-2"></i> <span class="glow">LESTER R.</span>
+        </a>
+        
+        <div class="hidden md:flex space-x-8">
+          <a href="#home" class="text-gray-800 hover:text-blue-600 transition hover:underline decoration-blue-600">Home</a>
+          <a href="#about" class="text-gray-800 hover:text-blue-600 transition hover:underline decoration-blue-600">About</a>
+          <a href="#projects" class="text-gray-800 hover:text-blue-600 transition hover:underline decoration-blue-600">Projects</a>
+          <a href="#skills" class="text-gray-800 hover:text-blue-600 transition hover:underline decoration-blue-600">Skills</a>
+          <a href="#certificates" class="text-gray-800 hover:text-blue-600 transition hover:underline decoration-blue-600">Certificates</a>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+          <button id="mobile-menu-button" class="md:hidden p-2 rounded-full bg-gray-200 text-gray-800 hover:bg-blue-600 hover:text-white transition">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg rounded-lg mt-2 py-2">
+        <a href="#home" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Home</a>
+        <a href="#about" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">About</a>
+        <a href="#projects" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Projects</a>
+        <a href="#skills" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Skills</a>
+        <a href="#certificates" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Certificates</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-20 pb-10 px-6 relative overflow-hidden hero-section">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center z-10">
+        <div class="order-2 md:order-1 hero-content">
+          <p class="text-blue-600 mb-4 font-medium">Welcome to my portfolio!</p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            Hey, I'm <span class="gradient-text">Lester Rodriguez</span>
+          </h1>
+          <div class="typewriter mb-6">
+            <span class="text-2xl md:text-3xl font-semibold">Web Developer</span>
+          </div>
+          <p class="text-lg mb-8 text-gray-600 max-w-lg">
+            I create sleek, user-friendly websites that deliver seamless experiences across all devices.
+          </p>
+          <div class="flex flex-wrap gap-4 mb-8 hero-buttons">
+            <a href="https://drive.google.com/file/d/1HNqN5I2vxHnhP8pHwzE6iBlb934TvWxC/view?usp=sharing" 
+              class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center transition transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
+              target= "_blank" rel="noopener noreferrer">
+              <i class="fas fa-download mr-2"></i> Download CV/Resume
+            </a>
+           <a href="https://www.linkedin.com/in/lester-rodriguez-6a295b308/" 
+              class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg flex items-center transition transform hover:-translate-y-1 shadow-lg hover:shadow-xl"
+              target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-linkedin-in mr-2"></i> LinkedIn
+           </a>
+          </div>
+          <div class="flex space-x-4 justify-center md:justify-start">
+            <a href="https://www.facebook.com/profile.php?id=100052087668852" 
+              class="text-gray-600 hover:text-blue-600 text-xl transition transform hover:-translate-y-1"
+              target= "_blank" rel= "noopener noreferrer">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="mailto:youremail@gmail.com" 
+              class="text-gray-600 hover:text-blue-600 text-xl transition transform hover:-translate-y-1"
+              target= "_blank" rel= "noopener noreferrer">
+              <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://github.com/CrochsDevs" 
+              class="text-gray-600 hover:text-blue-600 text-xl transition transform hover:-translate-y-1"
+              target= "_blank" rel= "noopener noreferrer">
+              <i class="fab fa-github"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="order-1 md:order-2 flex justify-center relative">
+          <div class="relative w-full max-w-xl">
+            <!-- Image Carousel -->
+            <div class="carousel-container">
+              <div class="carousel-track">
+                <!-- Image 1 -->
+                <div class="carousel-slide">
+                  <img src="images/undraw/illustrator.png" 
+                      alt="Programmer illustration 1" 
+                      class="rounded-lg tilt-image border-4 border-white">
+                </div>
+                <!-- Image 2 -->
+                <div class="carousel-slide">
+                  <img src="images/undraw/illustrator3.png" 
+                      alt="Programmer illustration 2" 
+                      class="rounded-lg tilt-image border-4 border-white">
+                </div>
+                <!-- Image 3 -->
+                <div class="carousel-slide">
+                  <img src="images/undraw/illustrator4.png" 
+                      alt="Programmer illustration 3" 
+                      class="rounded-lg tilt-image border-4 border-white">
+                </div>
+              </div>
+              
+              <!-- Navigation Dots -->
+              <div class="carousel-dots">
+                <button class="dot active" data-index="0"></button>
+                <button class="dot" data-index="1"></button>
+                <button class="dot" data-index="2"></button>
+              </div>
+              
+              <!-- Navigation Arrows -->
+              <div class="carousel-nav">
+                <button class="carousel-btn carousel-prev">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn carousel-next">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="absolute -bottom-5 -right-5 bg-blue-600 text-white p-4 rounded-lg shadow-lg z-10">
+              <i class="fas fa-code text-2xl"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Floating particles -->
+      <div id="particles"></div>
+    </section>
+
+   <!-- Tech Stack Carousel -->
+<section class="py-12 bg-gradient-to-r from-blue-50 to-blue-100">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">My Tech Stack & Tools</h2>
+    <div class="tech-carousel">
+      <div class="tech-track">
+        <!-- Programming Languages -->
+        <div class="tech-item group">
+          <i class="fab fa-html5 tech-icon" style="color: #E34F26;"></i>
+          <span class="tech-name">HTML5</span>
+          <div class="tech-tooltip">HyperText Markup Language</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fab fa-css3-alt tech-icon" style="color: #1572B6;"></i>
+          <span class="tech-name">CSS3</span>
+          <div class="tech-tooltip">Cascading Style Sheets</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fab fa-js tech-icon" style="color: #F7DF1E;"></i>
+          <span class="tech-name">JavaScript</span>
+          <div class="tech-tooltip">Client-side scripting</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fab fa-php tech-icon" style="color: #777BB4;"></i>
+          <span class="tech-name">PHP</span>
+          <div class="tech-tooltip">Server-side scripting</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fab fa-python tech-icon" style="color: #3776AB;"></i>
+          <span class="tech-name">Python</span>
+          <div class="tech-tooltip">General purpose programming</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fab fa-java tech-icon" style="color: #007396;"></i>
+          <span class="tech-name">Java</span>
+          <div class="tech-tooltip">Object-oriented programming</div>
+        </div>
+        
+        <!-- Frameworks & Libraries -->
+        <div class="tech-item group">
+          <i class="fab fa-react tech-icon" style="color: #61DAFB;"></i>
+          <span class="tech-name">ReactJS</span>
+          <div class="tech-tooltip">Frontend library</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fab fa-bootstrap tech-icon" style="color: #7952B3;"></i>
+          <span class="tech-name">Bootstrap</span>
+          <div class="tech-tooltip">CSS framework</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fas fa-fire tech-icon" style="color: #FFCA28;"></i>
+          <span class="tech-name">Firebase</span>
+          <div class="tech-tooltip">Backend as a service</div>
+        </div>
+        
+        <!-- Databases -->
+        <div class="tech-item group">
+          <i class="fas fa-database tech-icon" style="color: #4479A1;"></i>
+          <span class="tech-name">MySQL</span>
+          <div class="tech-tooltip">Relational database</div>
+        </div>
+        <!-- Tools & Platforms -->
+        <div class="tech-item group">
+          <i class="fab fa-git-alt tech-icon" style="color: #F05032;"></i>
+          <span class="tech-name">Git</span>
+          <div class="tech-tooltip">Version control</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fab fa-github tech-icon" style="color: #181717;"></i>
+          <span class="tech-name">GitHub</span>
+          <div class="tech-tooltip">Code hosting</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fab fa-figma tech-icon" style="color: #F24E1E;"></i>
+          <span class="tech-name">Figma</span>
+          <div class="tech-tooltip">UI/UX design</div>
+        </div>
+        <!-- Duplicate for seamless loop -->
+        <div class="tech-item group">
+          <i class="fab fa-html5 tech-icon" style="color: #E34F26;"></i>
+          <span class="tech-name">HTML5</span>
+          <div class="tech-tooltip">HyperText Markup Language</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fab fa-css3-alt tech-icon" style="color: #1572B6;"></i>
+          <span class="tech-name">CSS3</span>
+          <div class="tech-tooltip">Cascading Style Sheets</div>
+        </div>
+        <div class="tech-item group">
+          <i class="fab fa-js tech-icon" style="color: #F7DF1E;"></i>
+          <span class="tech-name">JavaScript</span>
+          <div class="tech-tooltip">Client-side scripting</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-6 bg-white relative overflow-hidden">
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">About <span class="gradient-text">Me</span></h2>
+          <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-emerald-500 mx-auto rounded-full"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <div class="flex justify-center">
+            <div class="relative">
+              <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-emerald-500 rounded-lg blur-md opacity-75 -rotate-3 scale-105"></div>
+              <img src="images/undraw/profile.jfif" 
+                   alt="Lester Rodriguez" 
+                   class="relative rounded-lg shadow-xl w-full max-w-md h-auto border-4 border-white tilt-image">
+            </div>
+          </div>
+          <div class="card-3d bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+            <h3 class="text-2xl font-bold mb-6">Front-end Developer</h3>
+            <p class="text-gray-600 mb-6">
+              Hi, I'm Lester Rodriguez, a passionate Front-end Web Developer dedicated to creating digital solutions that make an impact. I specialize in building responsive, user-friendly websites that deliver seamless experiences across all devices.
+            </p>
+            <p class="text-gray-600 mb-8">
+              With expertise in modern web technologies and frameworks, I'm committed to delivering high-quality results with attention to detail and creativity.
+            </p>
+            <div class="grid grid-cols-2 gap-4 mb-8">
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                  <i class="fas fa-check-circle text-blue-600"></i>
+                </div>
+                <span>Web Development</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                  <i class="fas fa-check-circle text-blue-600"></i>
+                </div>
+                <span>Responsive Design</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                  <i class="fas fa-check-circle text-blue-600"></i>
+                </div>
+                <span>UI/UX Design</span>
+              </div>
+              <div class="flex items-center">
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                  <i class="fas fa-check-circle text-blue-600"></i>
+                </div>
+                <span>Performance Optimization</span>
+              </div>
+            </div>
+            <a href="#skills" class="inline-block bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-700 hover:to-emerald-600 text-white px-6 py-3 rounded-lg transition transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
+              View My Skills
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Floating shapes background -->
+      <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div class="absolute top-20 left-10 w-20 h-20 rounded-full bg-blue-500 opacity-10 animate-pulse"></div>
+        <div class="absolute top-1/3 right-20 w-32 h-32 rounded-full bg-emerald-500 opacity-10 animate-pulse animation-delay-2000"></div>
+        <div class="absolute bottom-20 left-1/4 w-24 h-24 rounded-full bg-blue-500 opacity-10 animate-pulse animation-delay-3000"></div>
+        <div class="absolute bottom-1/3 right-10 w-16 h-16 rounded-full bg-emerald-500 opacity-10 animate-pulse animation-delay-1000"></div>
+      </div>
+    </section>
+
+ <!-- Projects Section -->
+   <section id="projects" class="py-20 px-4 sm:px-6 bg-gray-100 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="text-center mb-12 md:mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Projects</span></h2>
+      <p class="text-gray-600 max-w-2xl mx-auto px-4">Here are some of my recent projects that showcase my skills and experience</p>
+      <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-emerald-500 mx-auto mt-4 rounded-full"></div>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12 px-4 sm:px-0">
+      <!-- Project 1 - Web Application -->
+      <div class="project-card bg-white rounded-lg overflow-hidden shadow-md relative hover:shadow-lg transition-shadow duration-300">
+        <div class="relative overflow-hidden h-48 md:h-56">
+          <img src="images/undraw/Quickfacts/landing_pages.jpg" 
+               alt="QuickFacts Reporting System" 
+               class="w-full h-full object-cover transition-transform duration-500 hover:scale-105 cursor-pointer"
+               onclick="openModal('QuickFacts Reporting System', 'A nationwide digital reporting system developed during my internship at the Philippine Carabao Center. QuickFacts streamlines data collection and reporting between the National Headquarters and its various regional centers.', [
+                    'images/undraw/Quickfacts/landing_pages.jpg',
+                    'images/undraw/Quickfacts/login.jpg',
+                    'images/undraw/Quickfacts/admin_dashboard.jpg',
+                    'images/undraw/Quickfacts/admin_quick.jpg',
+                    'images/undraw/Quickfacts/admin_ai.jpg',
+                    'images/undraw/Quickfacts/admin_calf.jpg',
+                    'images/undraw/Quickfacts/center_dashboard.jpg',
+                    'images/undraw/Quickfacts/center_quick.jpg',
+                    'images/undraw/Quickfacts/center_ai.jpg',
+                    'images/undraw/Quickfacts/admin_insert_report.jpg',
+                    'images/undraw/Quickfacts/ai_reports.jpg',
+                    'images/undraw/Quickfacts/center_calf.jpg',
+                    'images/undraw/Quickfacts/calf_insert_report.jpg',
+                    'images/undraw/Quickfacts/calf_report.jpg'
+               ])">
+        </div>
+        <div class="p-5 md:p-6">
+          <h3 class="text-xl font-bold mb-2">QuickFacts (Reporting System for the National Headquarters and Regional Center of DA-PCC)</h3>
+          <p class="text-gray-600 mb-4 text-sm md:text-base">A nationwide digital reporting system developed during my internship at the Philippine Carabao Center.</p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">HTML5</span>
+            <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">CSS3</span>
+            <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">Tail-wind</span>
+            <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">JavaScript</span>
+            <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">Bootstrap</span>
+            <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">PHP</span>
+            <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">MySQL</span>
+            <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">Git & Github</span>
+          </div>
+        </div>
+      </div>
+      
+     <!-- Project 2 - Mobile App (Optimized for Mobile View) -->
+      <div class="project-card bg-white rounded-lg overflow-hidden shadow-md relative hover:shadow-lg transition-shadow duration-300">
+        <div class="relative h-48 md:h-56 flex items-center justify-center bg-gray-50 p-2 sm:p-4">
+          <!-- Mobile device frame with responsive sizing -->
+          <div class="relative mx-auto" style="width: 300px; height: 200px;">
+            <img src="images/undraw/Capstone/login_screen.jfif" 
+                alt="Campus Ride App Login Screen" 
+                class="absolute inset-0 w-full h-full object-contain bg-white rounded-[12px]"
+                style="top: 8px; left: 8px; right: 8px; bottom: 8px;"
+                onclick="openModal('Joda-lly Digital: Enhancing Accessibility and Convenience Through a Jeepney Booking Application for CLSU Students', 'Joda-lly Digital is a mobile-friendly jeepney booking application developed to improve transportation accessibility and convenience for students of Central Luzon State University (CLSU). The system allows users to easily schedule rides, view available routes, and receive real-time updates on jeepney availability. By digitizing the traditional booking process, Joda-lly reduces waiting time, enhances commuter safety, and streamlines coordination between drivers and passengers. Designed with user experience in mind, the platform supports CLSU\'s goal of promoting smart and efficient campus mobility.', [
+                        'images/undraw/Capstone/login_screen.jfif',
+                        'images/undraw/Capstone/login_role.jfif',
+                        'images/undraw/Capstone/student_login.jfif',
+                        'images/undraw/Capstone/student_driver_forgetpass.jfif',
+                        'images/undraw/Capstone/student_dashboard.jfif',
+                        'images/undraw/Capstone/student_history.jfif',
+                        'images/undraw/Capstone/student_trip.jfif',
+                        'images/undraw/Capstone/student_profile.jfif',
+                        'images/undraw/Capstone/driver_offline.jfif',
+                        'images/undraw/Capstone/driver_dashboard.jfif',
+                        'images/undraw/Capstone/driver_activity.jfif',
+                        'images/undraw/Capstone/driver_profile.jfif'
+                ])">
+          </div>
+        </div>
+        <div class="p-4 md:p-6">
+          <h3 class="text-lg md:text-xl font-bold mb-2">Capstone Project (Joda-lly Digital)</h3>
+          <p class="text-gray-600 mb-3 text-xs md:text-sm">Joda-lly Digital is a mobile-friendly jeepney booking application developed to improve transportation accessibility and convenience for students of Central Luzon State University (CLSU). </p>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="bg-blue-100 text-blue-800 text-[10px] md:text-xs px-2 py-0.5 rounded-full">Flutter</span>
+            <span class="bg-blue-100 text-blue-800 text-[10px] md:text-xs px-2 py-0.5 rounded-full">Dart</span>
+            <span class="bg-blue-100 text-blue-800 text-[10px] md:text-xs px-2 py-0.5 rounded-full">Google Maps API</span>
+            <span class="bg-blue-100 text-blue-800 text-[10px] md:text-xs px-2 py-0.5 rounded-full">Firebase</span>
+          </div>
+        </div>
+      </div>
+      
+        <!-- Project 3 - Web Application (Optimized Layout) -->
+        <div class="project-card bg-white rounded-lg overflow-hidden shadow-md relative hover:shadow-lg transition-shadow duration-300">
+              <div class="relative overflow-hidden h-48 md:h-56">
+          <!-- Frame-like container similar to mobile app view -->
+          <div class="relative mx-auto" style="width: 300px; height: 200px;">
+            <img src="images/undraw/Portfolio/Home.jpg" 
+                alt="Portfolio Website" 
+                class="absolute inset-0 w-full h-full object-contain bg-white rounded-[12px] z-0"
+                style="top: 8px; left: 8px; right: 8px; bottom: 8px;"
+                onclick="openModal(
+                  'Personal Portfolio Website Showcasing Web Development Skills, Projects, and Professional Background',
+                  'This personal portfolio website serves as a digital showcase of my skills, projects, and experience as a front-end web developer. Built using modern web technologies such as HTML5, CSS3, JavaScript, and Tailwind CSS, the site emphasizes clean design and responsive layout to ensure accessibility across all devices. It includes dedicated sections for project previews, technical skills, and contact information, all presented through an interactive and user-friendly interface that reflects my personal brand. The website also features modal popups, smooth animations, and external links to my LinkedIn and GitHub profiles to enhance professional visibility and engagement.',
+                  [
+                    'images/undraw/Portfolio/Home.jpg',
+                    'images/undraw/Portfolio/Programming_language.jpg',
+                    'images/undraw/Portfolio/about.jpg',
+                    'images/undraw/Portfolio/Project.jpg',
+                    'images/undraw/Portfolio/education.jpg',
+                    'images/undraw/Portfolio/certificate.jpg',
+                    'images/undraw/Portfolio/contact.jpg'
+                  ]
+                )"
+            />
+          </div>
+        </div>
+              <div class="p-5 md:p-6">
+                <h3 class="text-xl font-bold mb-2">Personal Portfolio Website</h3>
+                <p class="text-gray-600 mb-4 text-sm md:text-base">This personal portfolio website serves as a digital showcase of my skills, projects, and experience as a front-end web developer. </p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">HTML5</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">CSS3</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">JavaScript</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full">Tailwind</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+    <div class="text-center mt-8">
+      <button onclick="showAllProjects()" class="bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-700 hover:to-emerald-600 text-white px-6 py-3 rounded-lg transition-all transform hover:-translate-y-1 shadow-lg hover:shadow-xl active:scale-95">
+        View All Projects
+      </button>
+    </div>
+  </div>
+  
+  <!-- Floating particles -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+    <div class="particle" style="top: 20%; left: 10%; width: 3px; height: 3px; background-color: rgba(59, 130, 246, 0.5);"></div>
+    <div class="particle" style="top: 60%; left: 80%; width: 2px; height: 2px; background-color: rgba(16, 185, 129, 0.5);"></div>
+    <div class="particle" style="top: 40%; left: 30%; width: 4px; height: 4px; background-color: rgba(59, 130, 246, 0.7);"></div>
+  </div>
+</section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-6 bg-white relative overflow-hidden">
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Skills</span></h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">The skills, tools and technologies I use to bring your ideas to life</p>
+          <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-emerald-500 mx-auto mt-4 rounded-full"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 mb-12">
+          <!-- Education -->
+          <div class="card-3d bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+            <h3 class="text-2xl font-bold mb-6 flex items-center">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                <i class="fas fa-graduation-cap text-blue-600"></i>
+              </div>
+              Education
+            </h3>
+            <div class="space-y-6">
+              <div class="timeline-item">
+                <div class="timeline-dot">2021</div>
+                <div class="pl-6">
+                  <h4 class="font-bold">Bachelor of Science in Information Technology</h4>
+                  <p class="text-sm text-gray-500 mb-1">Major in System Development</p>
+                  <p class="text-gray-600">Equipped with a strong foundation in system development, eager to apply innovative problem-solving skills and create efficient solutions in the tech industry.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Hard Skills -->
+          <div class="card-3d bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+            <h3 class="text-2xl font-bold mb-6 flex items-center">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                <i class="fas fa-code text-blue-600"></i>
+              </div>
+              Hard Skills
+            </h3>
+            <div class="space-y-6">
+              <div class="timeline-item">
+                <div class="timeline-dot">2022</div>
+                <div class="pl-6">
+                  <h4 class="font-bold">HTML/CSS, JavaScript</h4>
+                  <p class="text-sm text-gray-500 mb-1">Bootstrap</p>
+                  <p class="text-gray-600">Proficient in building responsive, visually appealing, and interactive web interfaces using modern web technologies.</p>
+                  <div class="mt-2">
+                    <div class="skill-container">
+                      <div class="skill-bar" style="width: 90%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-dot">2022</div>
+                <div class="pl-6">
+                  <h4 class="font-bold">PHP Development</h4>
+                  <p class="text-sm text-gray-500 mb-1">OOP PHPMyAdmin</p>
+                  <p class="text-gray-600">Creating dynamic and efficient web applications, with expertise in backend logic, database integration, and server-side scripting.</p>
+                  <div class="mt-2">
+                    <div class="skill-container">
+                      <div class="skill-bar" style="width: 85%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div id="more-hard-skills" class="hidden space-y-6">
+                <div class="timeline-item">
+                  <div class="timeline-dot">2023</div>
+                  <div class="pl-6">
+                    <h4 class="font-bold">MySQL</h4>
+                    <p class="text-gray-600">Designing and managing databases, creating queries, and ensuring efficient data storage and retrieval for applications.</p>
+                    <div class="mt-2">
+                      <div class="skill-container">
+                        <div class="skill-bar" style="width: 80%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="timeline-dot">2023</div>
+                  <div class="pl-6">
+                    <h4 class="font-bold">FlutterFlow</h4>
+                    <p class="text-gray-600">Skilled in designing and managing databases in FlutterFlow, creating optimized queries, and ensuring efficient data storage and retrieval for seamless app performance.</p>
+                    <div class="mt-2">
+                      <div class="skill-container">
+                        <div class="skill-bar" style="width: 75%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="timeline-dot">2023</div>
+                  <div class="pl-6">
+                    <h4 class="font-bold">Flutter (Dart)</h4>
+                    <p class="text-gray-600">Capable of using Flutter and Dart to build mobile applications, design UI, manage state, and connect with databases.</p>
+                    <div class="mt-2">
+                      <div class="skill-container">
+                        <div class="skill-bar" style="width: 70%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="timeline-dot">2024</div>
+                  <div class="pl-6">
+                    <h4 class="font-bold">ReactJS</h4>
+                    <p class="text-gray-600">Proficient in building dynamic, responsive web applications using ReactJS. Skilled in creating reusable components, managing state, and delivering seamless user experiences.</p>
+                    <div class="mt-2">
+                      <div class="skill-container">
+                        <div class="skill-bar" style="width: 85%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="timeline-item">
+                  <div class="timeline-dot">2024</div>
+                  <div class="pl-6">
+                    <h4 class="font-bold">Laravel Frameworks</h4>
+                    <p class="text-gray-600">Familiar with Laravel for building web applications, including using its MVC structure, Eloquent ORM, and basic tools. Still learning and exploring its features to improve development skills and deliver functional solutions.</p>
+                    <div class="mt-2">
+                      <div class="skill-container">
+                        <div class="skill-bar" style="width: 65%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <button onclick="toggleHardSkills()" class="text-blue-600 hover:underline flex items-center">
+                View More Skills <i class="fas fa-chevron-down ml-2"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Soft Skills -->
+          <div class="card-3d bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+            <h3 class="text-2xl font-bold mb-6 flex items-center">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                <i class="fas fa-brain text-blue-600"></i>
+              </div>
+              Soft Skills
+            </h3>
+            <div class="space-y-6">
+              <div class="timeline-item">
+                <div class="timeline-dot">2022</div>
+                <div class="pl-6">
+                  <h4 class="font-bold">Time Management</h4>
+                  <p class="text-gray-600">Adept at identifying challenges and finding innovative solutions in both technical and non-technical settings. Strong analytical thinking and attention to detail.</p>
+                  <div class="mt-2">
+                    <div class="skill-container">
+                      <div class="skill-bar" style="width: 95%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-dot">2022</div>
+                <div class="pl-6">
+                  <h4 class="font-bold">Problem Solving</h4>
+                  <p class="text-gray-600">Adept at identifying challenges and finding innovative solutions in both technical and non-technical settings. Strong analytical thinking and attention to detail.</p>
+                  <div class="mt-2">
+                    <div class="skill-container">
+                      <div class="skill-bar" style="width: 90%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-dot">2023</div>
+                <div class="pl-6">
+                  <h4 class="font-bold">Teamwork</h4>
+                  <p class="text-gray-600">Strong collaborator who thrives in team-based environments, helping to create positive, productive relationships with colleagues, clients, and project stakeholders.</p>
+                  <div class="mt-2">
+                    <div class="skill-container">
+                      <div class="skill-bar" style="width: 85%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-dot">2024</div>
+                <div class="pl-6">
+                  <h4 class="font-bold">Adaptability</h4>
+                  <p class="text-gray-600">Flexible and able to quickly adapt to new technologies, challenges, and changing work environments. Committed to continuous learning and self-improvement.</p>
+                  <div class="mt-2">
+                    <div class="skill-container">
+                      <div class="skill-bar" style="width: 95%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Other Skills -->
+        <div>
+          <h3 class="text-2xl font-bold mb-6 text-center">Other <span class="gradient-text">Skills</span></h3>
+          <div class="grid md:grid-cols-4 gap-6">
+            <div class="bg-gray-100 p-6 rounded-lg text-center card-3d hover:shadow-xl transition">
+              <div class="text-blue-600 text-3xl mb-4">
+                <i class="fas fa-keyboard"></i>
+              </div>
+              <h4 class="font-bold mb-2">Data Entry</h4>
+              <p class="text-gray-600">Efficiently managing and inputting data while meeting deadlines.</p>
+              <div class="mt-4">
+                <div class="skill-container">
+                  <div class="skill-bar" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-100 p-6 rounded-lg text-center card-3d hover:shadow-xl transition">
+              <div class="text-blue-600 text-3xl mb-4">
+                <i class="fas fa-lightbulb"></i>
+              </div>
+              <h4 class="font-bold mb-2">Creativity</h4>
+              <p class="text-gray-600">Ability to think outside the box and develop innovative ideas and solutions.</p>
+              <div class="mt-4">
+                <div class="skill-container">
+                  <div class="skill-bar" style="width: 85%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-100 p-6 rounded-lg text-center card-3d hover:shadow-xl transition">
+              <div class="text-blue-600 text-3xl mb-4">
+                <i class="fas fa-file-excel"></i>
+              </div>
+              <h4 class="font-bold mb-2">Microsoft Office</h4>
+              <p class="text-gray-600">Skilled in Word, PPT, Excel and Outlook for document and data analysis.</p>
+              <div class="mt-4">
+                <div class="skill-container">
+                  <div class="skill-bar" style="width: 80%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="bg-gray-100 p-6 rounded-lg text-center card-3d hover:shadow-xl transition">
+              <div class="text-blue-600 text-3xl mb-4">
+                <i class="fas fa-search-plus"></i>
+              </div>
+              <h4 class="font-bold mb-2">Attention to Details</h4>
+              <p class="text-gray-600">Strong attention to detail, ensuring accuracy and thoroughness in every task.</p>
+              <div class="mt-4">
+                <div class="skill-container">
+                  <div class="skill-bar" style="width: 95%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Floating shapes background -->
+      <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div class="absolute top-1/4 left-1/4 w-16 h-16 rounded-full bg-blue-500 opacity-10 animate-pulse animation-delay-1000"></div>
+        <div class="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-emerald-500 opacity-10 animate-pulse animation-delay-2000"></div>
+      </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="py-20 px-6 bg-gray-100 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Certificates</span></h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Certifications from online courses and webinars that validate my skills and knowledge</p>
+          <div class="w-20 h-1 bg-gradient-to-r from-blue-600 to-emerald-500 mx-auto mt-4 rounded-full"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+           <!-- Certificate 1 -->
+          <div class="project-card bg-white rounded-lg overflow-hidden shadow-md relative">
+            <div class="relative overflow-hidden h-48">
+              <img src="images/undraw/Certificate/capstone.jfif" 
+                  alt="CLSU Research Colloquium Certificate" 
+                  class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                  onclick="openCertificateModal('Certificate of Participation | 7th CLSU Undergraduate Research Colloquium in Information Technology', 'This certificate recognizes my active participation in the 7th CLSU Undergraduate Research Colloquium in Information Technology, where I had the opportunity to present my capstone project and engage with fellow IT students and researchers. The event provided valuable experience in academic presentation, research dissemination, and professional networking within the IT community.', [
+                    'images/undraw/Certificate/capstone.jfif'
+                  ])">
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">Certificate of Participation | 7th CLSU Undergraduate Research Colloquium in Information Technology</h3>
+              <p class="text-gray-600 mb-4">Recognizes active participation in presenting research at the annual IT colloquium event.</p>
+            </div>
+          </div>
+          
+          <!-- Certificate 2 -->
+          <div class="project-card bg-white rounded-lg overflow-hidden shadow-md relative">
+          <div class="relative overflow-hidden h-48">
+            <img src="images/undraw/Certificate/training.jfif" 
+                alt="OJT Completion Certificate" 
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                onclick="openCertificateModal('Certificate of Completion | 486 hours On-the-Job Training Program', 'This certificate validates my successful completion of 486 hours of intensive On-the-Job Training at the Philippine Carabao Center National Headquarters and Genepool. During this training, I gained hands-on experience in IT systems management, data handling, and technical support within a government agricultural research institution, while developing professional workplace skills and technical competencies.', [
+                  'images/undraw/Certificate/training.jfif'
+                ])">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Certificate of Completion | 486 hours On-the-Job Training Program at the Philippine Carabao Center National Headquarters and Genepool</h3>
+            <p class="text-gray-600 mb-4">Certifies completion of 486 hours of professional IT training at a national agricultural research center.</p>
+          </div>
+        </div>
+          
+        <!-- Certificate 3 -->
+        <div class="project-card bg-white rounded-lg overflow-hidden shadow-md relative">
+          <div class="relative overflow-hidden h-48">
+            <img src="images/undraw/Certificate/AWS_image.jpg" 
+                alt="AWS Certificate" 
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                onclick="openCertificateModal('AWS Academy Cloud Foundations', 'This certification demonstrates my foundational knowledge of cloud computing and Amazon Web Services (AWS). Through the AWS Academy Cloud Foundations course, I gained essential skills in core AWS services, global infrastructure, cloud security, pricing models, and architecture best practices. The course prepared me for entry-level roles in cloud environments by emphasizing real-world scenarios, hands-on labs, and fundamental concepts that are critical in today\'s cloud-first landscape.', [
+                  'images/undraw/Certificate/AWS_image.jpg',
+                  'images/undraw/Certificate/aws_badge.png'
+                ])">
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">Certificate of Completion | Amazon Web Services (AWS) Cloud Foundations</h3>
+            <p class="text-gray-600 mb-4">Provides foundational knowledge of cloud computing concepts and Amazon Web Services (AWS) core services.</p>
+          </div>
+        </div>
+        </div>
+
+        <div class="text-center">
+          <button onclick="showAllCertificates()" class="bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-700 hover:to-emerald-600 text-white px-6 py-3 rounded-lg transition transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
+            View All Certificates
+          </button>
+        </div>
+      </div>
+      
+      <!-- Floating particles -->
+      <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div class="particle" style="top: 30%; left: 20%; width: 2px; height: 2px; background-color: rgba(59, 130, 246, 0.5);"></div>
+        <div class="particle" style="top: 70%; left: 70%; width: 3px; height: 3px; background-color: rgba(16, 185, 129, 0.5);"></div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 bg-gray-900 text-gray-300 relative overflow-hidden">
+      <div class="max-w-7xl mx-auto relative z-10">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+          <div>
+            <h3 class="text-xl font-bold mb-4 text-white glow">LESTER.</h3>
+            <p>Web Developer creating digital solutions that make an impact.</p>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-bold mb-4 text-white">Quick Links</h4>
+            <ul class="space-y-2">
+              <li><a href="#home" class="hover:text-blue-400 transition hover:underline decoration-blue-400">Home</a></li>
+              <li><a href="#about" class="hover:text-blue-400 transition hover:underline decoration-blue-400">About</a></li>
+              <li><a href="#projects" class="hover:text-blue-400 transition hover:underline decoration-blue-400">Projects</a></li>
+              <li><a href="#skills" class="hover:text-blue-400 transition hover:underline decoration-blue-400">Skills</a></li>
+              <li><a href="#certificates" class="hover:text-blue-400 transition hover:underline decoration-blue-400">Certificates</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-bold mb-4 text-white">Contact Info</h4>
+            <ul class="space-y-2">
+              <li class="flex items-center">
+                <i class="fas fa-envelope mr-3 text-blue-400"></i>
+                lester.s.rodriguez.09@gmail.com
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone-alt mr-3 text-blue-400"></i>
+                (+63) 938 125 3924
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-map-marker-alt mr-3 text-blue-400"></i>
+                Guimba, Nueva Ecija, Philippines
+              </li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 class="text-lg font-bold mb-4 text-white">Follow Me</h4>
+            <div class="flex space-x-4">
+              <a href="https://www.facebook.com/lester.sunido.rodriguez" 
+                class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition transform hover:-translate-y-1"
+                target="_blank"
+                rel="noopener noreferrer nofollow"
+                aria-label="Visit my Facebook profile">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="https://github.com/CrochsDevs" 
+                class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition transform hover:-translate-y-1"
+                target="_blank" 
+                rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://www.upwork.com/freelancers/~0149c136926af03e28" 
+                class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition transform hover:-translate-y-1"
+                target="_blank" 
+                rel="noopener noreferrer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M12.6 6.4h-1.2v3.2h1.2V6.4zm0 4.8h-1.2v1.2h1.2v-1.2z"/>
+                  <path d="M10.4 6.4H9.2v5.6h1.2V6.4zm-2.4 0H6.8v5.6h1.2V6.4zm-2.4 0H4.4v5.6h1.2V6.4z"/>
+                  <path fill-rule="evenodd" d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm4.8 12H3.2V4h9.6v8z" clip-rule="evenodd"/>
+                </svg>
+              </a>
+              <a href="https://www.linkedin.com/in/lester-rodriguez-6a295b308" 
+                class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-700 transition transform hover:-translate-y-1"
+                target="_blank"
+                rel="noopener noreferrer">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border-t border-gray-800 pt-8 text-center">
+          <p>&copy; 2025 Lester Rodriguez. All rights reserved.</p>
+        </div>
+      </div>
+      
+      <!-- Floating particles -->
+      <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div class="particle" style="top: 20%; left: 15%; width: 2px; height: 2px; background-color: rgba(59, 130, 246, 0.5);"></div>
+        <div class="particle" style="top: 60%; left: 75%; width: 3px; height: 3px; background-color: rgba(16, 185, 129, 0.5);"></div>
+        <div class="particle" style="top: 40%; left: 30%; width: 1px; height: 1px; background-color: rgba(255, 255, 255, 0.3);"></div>
+      </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300 backdrop-blur-sm">
+      <div class="modal-content bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+        <div class="modal-header flex justify-between items-center p-6 border-b border-gray-200">
+          <h3 id="modalTitle" class="text-2xl font-bold"></h3>
+          <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl transition transform hover:rotate-90">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body p-6">
+          <div class="modal-gallery mb-6">
+            <div class="modal-gallery-container" id="modalGalleryContainer"></div>
+            <div class="modal-gallery-nav">
+              <button class="modal-gallery-btn modal-gallery-prev">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="modal-gallery-btn modal-gallery-next">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="modal-gallery-dots" id="modalGalleryDots"></div>
+          </div>
+          <p id="modalDescription" class="text-gray-600"></p>
+        </div>
+        <div class="modal-footer p-6 border-t border-gray-200 flex justify-end">
+          <button onclick="closeModal()" class="bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-700 hover:to-emerald-600 text-white px-6 py-2 rounded-lg transition transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Projects Modal -->
+    <div id="allProjectsModal" class="modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-40 opacity-0 invisible transition-all duration-300 backdrop-blur-sm">
+      <div class="modal-content bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+        <div class="modal-header flex justify-between items-center p-6 border-b border-gray-200">
+          <h3 class="text-2xl font-bold">All Projects</h3>
+          <button onclick="closeAllProjectsModal()" class="text-gray-500 hover:text-gray-700 text-2xl transition transform hover:rotate-90">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body p-6">
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Project 1 - QuickFacts -->
+            <div class="project-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
+              <div class="relative overflow-hidden h-48">
+                <img src="images/undraw/Quickfacts/landing_pages.jpg" 
+                     alt="QuickFacts Reporting System" 
+                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                     onclick="openModalFromAllProjects('QuickFacts Reporting System', 'A nationwide digital reporting system developed during my internship at the Philippine Carabao Center. QuickFacts streamlines data collection and reporting between the National Headquarters and its various regional centers.', [
+                            'images/undraw/Quickfacts/landing_pages.jpg',
+                            'images/undraw/Quickfacts/login.jpg',
+                            'images/undraw/Quickfacts/admin_dashboard.jpg',
+                            'images/undraw/Quickfacts/admin_quick.jpg',
+                            'images/undraw/Quickfacts/admin_ai.jpg',
+                            'images/undraw/Quickfacts/admin_calf.jpg',
+                            'images/undraw/Quickfacts/center_dashboard.jpg',
+                            'images/undraw/Quickfacts/center_quick.jpg',
+                            'images/undraw/Quickfacts/center_ai.jpg',
+                            'images/undraw/Quickfacts/admin_insert_report.jpg',
+                            'images/undraw/Quickfacts/ai_reports.jpg',
+                            'images/undraw/Quickfacts/center_calf.jpg',
+                            'images/undraw/Quickfacts/calf_insert_report.jpg',
+                            'images/undraw/Quickfacts/calf_report.jpg'
+                     ])">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">QuickFacts Reporting System</h3>
+                <p class="text-gray-600 mb-4">A nationwide digital reporting system for the Philippine Carabao Center.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">HTML5</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">CSS3</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Tail-wind</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">JavaScript</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Bootstrap</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">PHP</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">MySQL</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Git & Github</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Project 2 - Joda-lly Digital -->
+            <div class="project-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
+              <div class="relative overflow-hidden h-48">
+                <img src="images/undraw/Capstone/login_screen.jfif" 
+                     alt="Joda-lly Digital App" 
+                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                     onclick="openModalFromAllProjects('Joda-lly Digital: Enhancing Accessibility and Convenience Through a Jeepney Booking Application for CLSU Students', 'Joda-lly Digital is a mobile-friendly jeepney booking application developed to improve transportation accessibility and convenience for students of Central Luzon State University (CLSU). The system allows users to easily schedule rides, view available routes, and receive real-time updates on jeepney availability. By digitizing the traditional booking process, Joda-lly reduces waiting time, enhances commuter safety, and streamlines coordination between drivers and passengers. Designed with user experience in mind, the platform supports CLSU\'s goal of promoting smart and efficient campus mobility.', [
+                            'images/undraw/Capstone/login_screen.jfif',
+                            'images/undraw/Capstone/login_role.jfif',
+                            'images/undraw/Capstone/student_login.jfif',
+                            'images/undraw/Capstone/student_driver_forgetpass.jfif',
+                            'images/undraw/Capstone/student_dashboard.jfif',
+                            'images/undraw/Capstone/student_history.jfif',
+                            'images/undraw/Capstone/student_trip.jfif',
+                            'images/undraw/Capstone/student_profile.jfif',
+                            'images/undraw/Capstone/driver_offline.jfif',
+                            'images/undraw/Capstone/driver_dashboard.jfif',
+                            'images/undraw/Capstone/driver_activity.jfif',
+                            'images/undraw/Capstone/driver_profile.jfif'
+                     ])">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Capstone Project (Joda-lly Digital)</h3>
+                <p class="text-gray-600 mb-4">Jeepney booking application for CLSU students.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Flutter</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Dart</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Google Map API</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Firebase</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Project 3 - Portfolio -->
+            <div class="project-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
+              <div class="relative overflow-hidden h-48">
+                <img src="images/undraw/Portfolio/Home.jpg" 
+                     alt="Portfolio Website" 
+                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                     onclick="openModalFromAllProjects('Personal Portfolio Website Showcasing Web Development Skills, Projects, and Professional Background', 'This personal portfolio website serves as a digital showcase of my skills, projects, and experience as a front-end web developer. Built using modern web technologies such as HTML5, CSS3, JavaScript, and Tailwind CSS, the site emphasizes clean design and responsive layout to ensure accessibility across all devices. It includes dedicated sections for project previews, technical skills, and contact information, all presented through an interactive and user-friendly interface that reflects my personal brand. The website also features modal popups, smooth animations, and external links to my LinkedIn and GitHub profiles to enhance professional visibility and engagement.', [
+                            'images/undraw/Portfolio/Home.jpg',
+                            'images/undraw/Portfolio/Programming_language.jpg',
+                            'images/undraw/Portfolio/about.jpg',
+                            'images/undraw/Portfolio/Project.jpg',
+                            'images/undraw/Portfolio/education.jpg',
+                            'images/undraw/Portfolio/certificate.jpg',
+                            'images/undraw/Portfolio/contact.jpg'
+                     ])">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Personal Portfolio Website</h3>
+                <p class="text-gray-600 mb-4">Showcasing web development skills and projects.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">HTML5</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">CSS3</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">JavaScript</span>
+                  <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Tailwind</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer p-6 border-t border-gray-200 flex justify-end">
+          <button onclick="closeAllProjectsModal()" class="bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-700 hover:to-emerald-600 text-white px-6 py-2 rounded-lg transition transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Certificates Modal -->
+    <div id="allCertificatesModal" class="modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-40 opacity-0 invisible transition-all duration-300 backdrop-blur-sm">
+      <div class="modal-content bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+        <div class="modal-header flex justify-between items-center p-6 border-b border-gray-200">
+          <h3 class="text-2xl font-bold">All Certificates</h3>
+          <button onclick="closeAllCertificatesModal()" class="text-gray-500 hover:text-gray-700 text-2xl transition transform hover:rotate-90">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body p-6">
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Certificate 1 - Research -->
+            <div class="project-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
+              <div class="relative overflow-hidden h-48">
+                <img src="images/undraw/Certificate/capstone.jfif" 
+                     alt="CLSU Research Certificate" 
+                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                     onclick="openCertificateModalFromAll('Certificate of Participation | 7th CLSU Undergraduate Research Colloquium in Information Technology', 'This certificate recognizes my active participation in the 7th CLSU Undergraduate Research Colloquium in Information Technology, where I had the opportunity to present my capstone project and engage with fellow IT students and researchers. The event provided valuable experience in academic presentation, research dissemination, and professional networking within the IT community.', [
+                       'images/undraw/Certificate/capstone.jfif'
+                     ])">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Certificate of Participation | 7th CLSU Undergraduate Research Colloquium in Information Technology</h3>
+                <p class="text-gray-600 mb-4">Recognizes active participation in presenting research at the annual IT colloquium event.</p>
+              </div>
+            </div>
+            
+            <!-- Certificate 2 - OJT -->
+            <div class="project-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
+              <div class="relative overflow-hidden h-48">
+                <img src="images/undraw/Certificate/training.jfif" 
+                     alt="OJT Completion Certificate" 
+                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                     onclick="openCertificateModalFromAll('Certificate of Completion | 486 hours On-the-Job Training Program', 'This certificate validates my successful completion of 486 hours of intensive On-the-Job Training at the Philippine Carabao Center National Headquarters and Genepool. During this training, I gained hands-on experience in IT systems management, data handling, and technical support within a government agricultural research institution, while developing professional workplace skills and technical competencies.', [
+                       'images/undraw/Certificate/training.jfif'
+                     ])">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Certificate of Completion | 486 hours On-the-Job Training Program at the Philippine Carabao Center National Headquarters and Genepool</h3>
+                <p class="text-gray-600 mb-4">Certifies completion of 486 hours of professional IT training at a national agricultural research center.</p>
+              </div>
+            </div>
+            
+            <!-- Certificate 3 - AWS -->
+            <div class="project-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
+              <div class="relative overflow-hidden h-48">
+                <img src="images/undraw/Certificate/AWS_image.jpg" 
+                     alt="AWS Certificate" 
+                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                     onclick="openCertificateModalFromAll('AWS Academy Cloud Foundations', 'This certification demonstrates my foundational knowledge of cloud computing and Amazon Web Services (AWS). Through the AWS Academy Cloud Foundations course, I gained essential skills in core AWS services, global infrastructure, cloud security, pricing models, and architecture best practices. The course prepared me for entry-level roles in cloud environments by emphasizing real-world scenarios, hands-on labs, and fundamental concepts that are critical in today\'s cloud-first landscape.', [
+                       'images/undraw/Certificate/AWS_image.jpg',
+                       'images/undraw/Certificate/aws_badge.png'
+                     ])">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">AWS Academy Cloud Foundations</h3>
+                <p class="text-gray-600 mb-4">AWS Academy Cloud Foundations teaches AWS basics, cloud architecture, and core services.</p>
+              </div>
+            </div>
+            
+            <!-- Certificate 4 - Cisco Networking -->
+            <div class="project-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
+              <div class="relative overflow-hidden h-48">
+                <img src="images/undraw/Certificate/certificate 1.jpg" 
+                     alt="Cisco Networking Certificate" 
+                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                     onclick="openCertificateModalFromAll('Cisco (Networking Devices and Initial Configuration)', 'This certification provides a solid foundation in networking fundamentals and hands-on skills in configuring Cisco routers and switches. It covers essential topics such as network device functions, IP addressing, and basic Cisco IOS commands preparing learners for real-world network setup and troubleshooting tasks.', [
+                       'images/undraw/Certificate/certificate 1.jpg'
+                     ])">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Cisco Network Academy: Networking Devices and Initial Configuration</h3>
+                <p class="text-gray-600 mb-4">This certification provides a solid foundation in networking fundamentals.</p>
+              </div>
+            </div>
+            
+            <!-- Certificate 5 - Cisco Cybersecurity -->
+            <div class="project-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
+              <div class="relative overflow-hidden h-48">
+                <img src="images/undraw/Certificate/certificate 2.jpg" 
+                     alt="Cisco Cybersecurity Certificate" 
+                     class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                     onclick="openCertificateModalFromAll('Introduction to Cybersecurity', 'This course introduces the fundamental principles of cybersecurity, including common threats, vulnerabilities, and attack types. It explores essential security concepts such as confidentiality, integrity, and availability, while emphasizing the importance of cybersecurity in today\'s digital world. Designed for beginners, the course lays a strong foundation for further study in the field.', [
+                       'images/undraw/Certificate/certificate 2.jpg'
+                     ])">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Cisco Network Academy: Introduction to Cybersecurity</h3>
+                <p class="text-gray-600 mb-4">This course introduces the fundamental principles of cybersecurity.</p>
+              </div>
+            </div>
+            
+           <!-- Certificate 6 - Network Basics -->
+            <div class="project-card bg-gray-100 rounded-lg overflow-hidden shadow-md">
+              <div class="relative overflow-hidden h-48">
+                <img src="images/undraw/Certificate/certificate 3.jpg" 
+                    alt="Cisco Network Basics Certificate" 
+                    class="w-full h-full object-cover transition-transform duration-500 hover:scale-110 cursor-pointer"
+                    onclick="openCertificateModalFromAll('Cisco Network Academy: Network Basics', 'This certificate represents completion of the Network Basics course from Cisco Networking Academy. The course provides foundational knowledge in networking concepts including network architectures, protocols, IP addressing, and basic network security principles essential for building and maintaining computer networks.', [
+                      'images/undraw/Certificate/certificate 3.jpg'
+                    ])">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold mb-2">Cisco Network Academy: Network Basics</h3>
+                <p class="text-gray-600 mb-4">Covers fundamental networking concepts including architectures, protocols, and IP addressing.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer p-6 border-t border-gray-200 flex justify-end">
+          <button onclick="closeAllCertificatesModal()" class="bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-700 hover:to-emerald-600 text-white px-6 py-2 rounded-lg transition transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificate Detail Modal -->
+    <div id="certificateModal" class="modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 opacity-0 invisible transition-all duration-300 backdrop-blur-sm">
+      <div class="modal-content bg-white rounded-lg shadow-xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+        <div class="modal-header flex justify-between items-center p-6 border-b border-gray-200">
+          <h3 id="certificateModalTitle" class="text-2xl font-bold"></h3>
+          <button onclick="closeCertificateModal()" class="text-gray-500 hover:text-gray-700 text-2xl transition transform hover:rotate-90">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body p-6">
+          <div class="modal-gallery mb-6">
+            <div class="modal-gallery-container" id="certificateGalleryContainer"></div>
+            <div class="modal-gallery-nav">
+              <button class="modal-gallery-btn modal-gallery-prev">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="modal-gallery-btn modal-gallery-next">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="modal-gallery-dots" id="certificateGalleryDots"></div>
+          </div>
+          <p id="certificateModalDescription" class="text-gray-600"></p>
+        </div>
+        <div class="modal-footer p-6 border-t border-gray-200 flex justify-end">
+          <button onclick="closeCertificateModal()" class="bg-gradient-to-r from-blue-600 to-emerald-500 hover:from-blue-700 hover:to-emerald-600 text-white px-6 py-2 rounded-lg transition transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fab-button" onclick="scrollToTop()">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      mobileMenuButton.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+            
+            // Close mobile menu if open
+            mobileMenu.classList.add('hidden');
+          }
+        });
+      });
+
+      // PROJECT MODAL SYSTEM
+      let currentSlideIndex = 0;
+      let totalSlides = 0;
+
+      function openModal(title, description, imageUrls) {
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalDescription').textContent = description;
+        
+        const galleryContainer = document.getElementById('modalGalleryContainer');
+        const dotsContainer = document.getElementById('modalGalleryDots');
+        
+        // Clear previous content
+        galleryContainer.innerHTML = '';
+        dotsContainer.innerHTML = '';
+        
+        // Set total slides
+        totalSlides = imageUrls.length;
+        
+        // Create slides
+        imageUrls.forEach((url, index) => {
+          // Create slide
+          const slide = document.createElement('div');
+          slide.classList.add('modal-gallery-slide', 'w-full', 'h-full', 'flex-shrink-0');
+          
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = title + ' - Image ' + (index + 1);
+          img.classList.add('w-full', 'h-full', 'object-contain');
+          
+          slide.appendChild(img);
+          galleryContainer.appendChild(slide);
+          
+          // Create dot
+          const dot = document.createElement('button');
+          dot.classList.add('modal-dot', 'w-3', 'h-3', 'rounded-full', 'mx-1', 'focus:outline-none');
+          if (index === 0) dot.classList.add('bg-blue-600');
+          else dot.classList.add('bg-gray-400');
+          dot.dataset.index = index;
+          dot.addEventListener('click', () => {
+            goToSlide(index);
+          });
+          dotsContainer.appendChild(dot);
+        });
+        
+        // Initialize gallery
+        currentSlideIndex = 0;
+        updateGallery();
+        
+        const modal = document.getElementById('projectModal');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function openModalFromAllProjects(title, description, imageUrls) {
+        closeAllProjectsModal();
+        setTimeout(() => {
+          openModal(title, description, imageUrls);
+        }, 300);
+      }
+
+      function updateGallery() {
+        const galleryContainer = document.getElementById('modalGalleryContainer');
+        const dots = document.querySelectorAll('.modal-dot');
+        
+        galleryContainer.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+        
+        dots.forEach((dot, index) => {
+          if (index === currentSlideIndex) {
+            dot.classList.remove('bg-gray-400');
+            dot.classList.add('bg-blue-600');
+          } else {
+            dot.classList.remove('bg-blue-600');
+            dot.classList.add('bg-gray-400');
+          }
+        });
+      }
+
+      function nextSlide() {
+        currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+        updateGallery();
+      }
+
+      function prevSlide() {
+        currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+        updateGallery();
+      }
+
+      function goToSlide(index) {
+        currentSlideIndex = index;
+        updateGallery();
+      }
+
+      function closeModal() {
+        const modal = document.getElementById('projectModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+
+      // ALL PROJECTS MODAL
+      function showAllProjects() {
+        const modal = document.getElementById('allProjectsModal');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeAllProjectsModal() {
+        const modal = document.getElementById('allProjectsModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+
+      // CERTIFICATE MODAL SYSTEM
+      let currentCertificateSlideIndex = 0;
+      let totalCertificateSlides = 0;
+
+      function openCertificateModal(title, description, imageUrls) {
+        document.getElementById('certificateModalTitle').textContent = title;
+        document.getElementById('certificateModalDescription').textContent = description;
+        
+        const galleryContainer = document.getElementById('certificateGalleryContainer');
+        const dotsContainer = document.getElementById('certificateGalleryDots');
+        
+        // Clear previous content
+        galleryContainer.innerHTML = '';
+        dotsContainer.innerHTML = '';
+        
+        // Set total slides
+        totalCertificateSlides = imageUrls.length;
+        
+        // Create slides
+        imageUrls.forEach((url, index) => {
+          // Create slide
+          const slide = document.createElement('div');
+          slide.classList.add('modal-gallery-slide', 'w-full', 'h-full', 'flex-shrink-0');
+          
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = title + ' - Image ' + (index + 1);
+          img.classList.add('w-full', 'h-full', 'object-contain');
+          
+          slide.appendChild(img);
+          galleryContainer.appendChild(slide);
+          
+          // Create dot
+          const dot = document.createElement('button');
+          dot.classList.add('modal-dot', 'w-3', 'h-3', 'rounded-full', 'mx-1', 'focus:outline-none');
+          if (index === 0) dot.classList.add('bg-blue-600');
+          else dot.classList.add('bg-gray-400');
+          dot.dataset.index = index;
+          dot.addEventListener('click', () => {
+            goToCertificateSlide(index);
+          });
+          dotsContainer.appendChild(dot);
+        });
+        
+        // Initialize gallery
+        currentCertificateSlideIndex = 0;
+        updateCertificateGallery();
+        
+        const modal = document.getElementById('certificateModal');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function openCertificateModalFromAll(title, description, imageUrls) {
+        closeAllCertificatesModal();
+        setTimeout(() => {
+          openCertificateModal(title, description, imageUrls);
+        }, 300);
+      }
+
+      function updateCertificateGallery() {
+        const galleryContainer = document.getElementById('certificateGalleryContainer');
+        const dots = document.querySelectorAll('#certificateGalleryDots .modal-dot');
+        
+        galleryContainer.style.transform = `translateX(-${currentCertificateSlideIndex * 100}%)`;
+        
+        dots.forEach((dot, index) => {
+          if (index === currentCertificateSlideIndex) {
+            dot.classList.remove('bg-gray-400');
+            dot.classList.add('bg-blue-600');
+          } else {
+            dot.classList.remove('bg-blue-600');
+            dot.classList.add('bg-gray-400');
+          }
+        });
+      }
+
+      function nextCertificateSlide() {
+        currentCertificateSlideIndex = (currentCertificateSlideIndex + 1) % totalCertificateSlides;
+        updateCertificateGallery();
+      }
+
+      function prevCertificateSlide() {
+        currentCertificateSlideIndex = (currentCertificateSlideIndex - 1 + totalCertificateSlides) % totalCertificateSlides;
+        updateCertificateGallery();
+      }
+
+      function goToCertificateSlide(index) {
+        currentCertificateSlideIndex = index;
+        updateCertificateGallery();
+      }
+
+      function closeCertificateModal() {
+        const modal = document.getElementById('certificateModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+
+      // ALL CERTIFICATES MODAL
+      function showAllCertificates() {
+        const modal = document.getElementById('allCertificatesModal');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeAllCertificatesModal() {
+        const modal = document.getElementById('allCertificatesModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+
+      // Toggle hard skills visibility
+      function toggleHardSkills() {
+        const moreSkills = document.getElementById('more-hard-skills');
+        const button = document.querySelector('button[onclick="toggleHardSkills()"]');
+        
+        moreSkills.classList.toggle('hidden');
+        
+        if (moreSkills.classList.contains('hidden')) {
+          button.innerHTML = 'View More Skills <i class="fas fa-chevron-down ml-2"></i>';
+        } else {
+          button.innerHTML = 'View Less Skills <i class="fas fa-chevron-up ml-2"></i>';
+        }
+      }
+
+      // Scroll to top function
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+
+      // Show floating action button when scrolling
+      window.addEventListener('scroll', () => {
+        const fab = document.querySelector('.fab-button');
+        if (window.scrollY > 300) {
+          fab.classList.add('visible');
+        } else {
+          fab.classList.remove('visible');
+        }
+      });
+
+      // Create floating particles
+      function createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        if (particlesContainer) {
+          // Create 20 particles
+          for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            // Random position
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            
+            // Random size
+            const size = Math.random() * 4 + 1;
+            
+            // Random animation
+            const duration = Math.random() * 20 + 10;
+            const delay = Math.random() * 5;
+            
+            particle.style.left = `${x}%`;
+            particle.style.top = `${y}%`;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
+            
+            particlesContainer.appendChild(particle);
+          }
+        }
+      }
+
+      // Initialize particles
+      createParticles();
+
+      // Animate skill bars on scroll
+      function animateSkillBars() {
+        const skillBars = document.querySelectorAll('.skill-bar');
+        
+        skillBars.forEach(bar => {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                bar.style.width = bar.style.width;
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.5 });
+          
+          observer.observe(bar);
+        });
+      }
+
+      // Initialize skill bar animation
+      animateSkillBars();
+
+      // Add tilt effect to images on mouse move
+      function initTiltEffect() {
+        const tiltImages = document.querySelectorAll('.tilt-image');
+        
+        tiltImages.forEach(image => {
+          image.addEventListener('mousemove', (e) => {
+            const rect = image.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const angleX = (y - centerY) / 20;
+            const angleY = (centerX - x) / 20;
+            
+            image.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
+          });
+          
+          image.addEventListener('mouseleave', () => {
+            image.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+          });
+        });
+      }
+
+      // Initialize tilt effect
+      initTiltEffect();
+
+      // Carousel functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const track = document.querySelector('.carousel-track');
+        const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+        const dots = Array.from(document.querySelectorAll('.dot'));
+        const prevBtn = document.querySelector('.carousel-prev');
+        const nextBtn = document.querySelector('.carousel-next');
+        
+        let currentIndex = 0;
+        const slideCount = slides.length;
+        
+        // Set initial active dot
+        dots[currentIndex].classList.add('active');
+        
+        // Function to update carousel position
+        function updateCarousel() {
+          track.style.transform = `translateX(-${currentIndex * 100}%)`;
+          
+          // Update active dot
+          dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+          });
+        }
+        
+        // Next slide
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % slideCount;
+          updateCarousel();
+        }
+        
+        // Previous slide
+        function prevSlide() {
+          currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+          updateCarousel();
+        }
+        
+        // Dot navigation
+        dots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            currentIndex = parseInt(dot.getAttribute('data-index'));
+            updateCarousel();
+          });
+        });
+        
+        // Button events
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+        
+        // Auto-advance every 5 seconds
+        let slideInterval = setInterval(nextSlide, 5000);
+        
+        // Pause on hover
+        const carousel = document.querySelector('.carousel-container');
+        carousel.addEventListener('mouseenter', () => {
+          clearInterval(slideInterval);
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+          slideInterval = setInterval(nextSlide, 5000);
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight') {
+            nextSlide();
+          } else if (e.key === 'ArrowLeft') {
+            prevSlide();
+          }
+        });
+      });
+
+      // Enhanced carousel with seamless looping
+      document.addEventListener('DOMContentLoaded', function() {
+        const carousel = document.querySelector('.tech-carousel');
+        const track = document.querySelector('.tech-track');
+        const items = document.querySelectorAll('.tech-item');
+        
+        // Clone the items for seamless looping
+        const cloneItems = Array.from(items).map(item => item.cloneNode(true));
+        cloneItems.forEach(item => {
+          track.appendChild(item);
+        });
+        
+        // Pause animation on hover
+        carousel.addEventListener('mouseenter', () => {
+          track.style.animationPlayState = 'paused';
+        });
+        
+        carousel.addEventListener('mouseleave', () => {
+          track.style.animationPlayState = 'running';
+        });
+        
+        // Reset position when animation completes
+        track.addEventListener('animationiteration', () => {
+          // This ensures smooth continuous looping
+        });
+      });
+
+      // Event listeners for modal gallery navigation
+      document.addEventListener('DOMContentLoaded', function() {
+        // Project modal navigation
+        document.querySelector('.modal-gallery-next')?.addEventListener('click', nextSlide);
+        document.querySelector('.modal-gallery-prev')?.addEventListener('click', prevSlide);
+        
+        // Certificate modal navigation
+        document.querySelector('#certificateModal .modal-gallery-next')?.addEventListener('click', nextCertificateSlide);
+        document.querySelector('#certificateModal .modal-gallery-prev')?.addEventListener('click', prevCertificateSlide);
+        
+        // Keyboard navigation for modals
+        document.addEventListener('keydown', function(e) {
+          const projectModal = document.getElementById('projectModal');
+          const certificateModal = document.getElementById('certificateModal');
+          
+          if (projectModal.classList.contains('active')) {
+            if (e.key === 'ArrowRight') {
+              nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+              prevSlide();
+            } else if (e.key === 'Escape') {
+              closeModal();
+            }
+          }
+          
+          if (certificateModal.classList.contains('active')) {
+            if (e.key === 'ArrowRight') {
+              nextCertificateSlide();
+            } else if (e.key === 'ArrowLeft') {
+              prevCertificateSlide();
+            } else if (e.key === 'Escape') {
+              closeCertificateModal();
+            }
+          }
+        });
+      });
+
+      // Close modals when clicking outside
+      window.addEventListener('click', (e) => {
+        const projectModal = document.getElementById('projectModal');
+        if (e.target === projectModal) {
+          closeModal();
+        }
+        
+        const allProjectsModal = document.getElementById('allProjectsModal');
+        if (e.target === allProjectsModal) {
+          closeAllProjectsModal();
+        }
+        
+        const certificateModal = document.getElementById('certificateModal');
+        if (e.target === certificateModal) {
+          closeCertificateModal();
+        }
+        
+        const allCertificatesModal = document.getElementById('allCertificatesModal');
+        if (e.target === allCertificatesModal) {
+          closeAllCertificatesModal();
+        }
+      });
+
+      // Initialize all interactive elements when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        // Make certificate images in all certificates modal clickable
+        document.querySelectorAll('#allCertificatesModal img').forEach(img => {
+          img.addEventListener('click', function() {
+            const card = this.closest('.project-card');
+            const title = card.querySelector('h3').textContent;
+            const description = card.querySelector('p').textContent;
+            const images = [this.src]; // Just the clicked image for simplicity
+            
+            openCertificateModalFromAll(title, description, images);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
